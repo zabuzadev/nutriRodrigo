@@ -1342,6 +1342,28 @@
             }
         }
 
+        /* Ajuste dos badges flutuantes no mobile */
+        @media (max-width: 600px) {
+    .floating-badge {
+        position: static !important;
+        display: block;
+        margin: 1rem auto 0 auto;
+        width: fit-content;
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+        animation: none !important;
+        box-shadow: none;
+    }
+    .hero-image {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .hero-image img {
+        max-width: 90vw;
+        height: auto;
+    }
+}
         /* ===== ANIMATIONS ===== */
         @keyframes fadeInUp {
             from {
@@ -1420,3 +1442,4 @@
 
         .text-glow {
             text-shadow: 0 0 10px rgba(0, 212, 170, 0.5);
+        }
