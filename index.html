@@ -3,503 +3,867 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rodrigo Nutricionista | Emagrecimento Definitivo e Saudável</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>Rodrigo Nutrição - Acompanhamento Real, Resultados Reais</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-            
-            <ul class="nav-menu">
-                <li><a href="#hero">Início</a></li>
-                <li><a href="#benefits">Benefícios</a></li>
-                <li><a href="#transformations">Resultados</a></li>
-                <li><a href="#about">Sobre</a></li>
-                <li><a href="#how-it-works">Como Funciona</a></li>
-                <li><a href="#faq">FAQ</a></li>
-            </ul>
-            
-            <a href="https://wa.me/5511999999999?text=Olá Rodrigo! Quero agendar minha consulta nutricional" class="header-cta">
-                Agendar Consulta
-            </a>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-   <section id="hero" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Perca peso de forma <span class="highlight">saudável</span> com acompanhamento nutricional personalizado</h1>
-                    <p>Consultoria nutricional individualizada para você emagrecer definitivamente, sem dietas restritivas ou efeito sanfona. Atendimento presencial e online.</p>
-                    
-                    <div class="hero-stats">
-                        <div class="stat">
-                            <span class="stat-number">500+</span>
-                            <span class="stat-label">Pacientes atendidos</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">5+</span>
-                            <span class="stat-label">Anos de experiência</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">92%</span>
-                            <span class="stat-label">Taxa de sucesso</span>
-                        </div>
-                    </div>
-                    
-                    <div class="hero-buttons">
-                        <a href="https://wa.me/5511999999999?text=Olá Rodrigo! Quero agendar minha consulta nutricional" class="btn btn-primary">
-                            <i class="fab fa-whatsapp"></i>
-                            Agendar Minha Consulta
-                        </a>
-                        <a href="#transformations" class="btn btn-secondary">
-                            Ver Resultados
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="hero-image">
-                    <!-- ===== SUBSTITUA ESTA FOTO PELA PNG SEM FUNDO DO NUTRICIONISTA RODRIGO ===== -->
-                    <img src="DSC01900.JPG">
-                    
-                    <div class="floating-badge badge-1">
-                        <i class="fas fa-heart"></i> Saúde em 1º lugar
-                    </div>
-                    <div class="floating-badge badge-2">
-                        <i class="fas fa-chart-line"></i> Resultados garantidos
-                    </div>
-                    <div class="floating-badge badge-3">
-                        <i class="fas fa-leaf"></i> Atendimento personalizado
-                    </div>
-                </div>
-            </div>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader">
+            <div class="spinner"></div>
+            <p>Carregando...</p>
         </div>
-    </section>
+    </div>
 
-    <!-- Benefits Section -->
-    <section id="benefits" class="benefits">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Por que escolher minha consultoria nutricional?</h2>
-                <p class="section-subtitle">Atendimento individualizado e científico que gera resultados reais</p>
+    <!-- Progress Bar -->
+    <div id="progress-bar"></div>
+
+    <!-- Header Navigation -->
+    <nav class="header-nav" id="header">
+        <div class="nav-content">
+            <div class="logo">
+                <h1>RODRIGO</h1>
+                <span>nutrição</span>
             </div>
-            
-            <div class="benefits-grid">
-                <div class="benefit-card reveal">
-                    <div class="benefit-icon">
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#sobre" class="nav-link">Sobre</a></li>
+                <li><a href="#verdade" class="nav-link">A Verdade</a></li>
+                <li><a href="#como-funciona" class="nav-link">Como Funciona</a></li>
+                <li><a href="#resultados" class="nav-link">Resultados</a></li>
+                <li><a href="#planos" class="nav-link cta-nav">Planos</a></li>
+                <li><a href="#contato" class="nav-link">Contato</a></li>
+            </ul>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Alert Banner -->
+    <div class="alert-banner">
+        <div class="alert-content">
+            🔥 NÃO É APENAS UM PROTOCOLO, MAS SIM UM 
+            <span class="highlight-text">ACOMPANHAMENTO DE VERDADE</span> 🔥
+        </div>
+    </div>
+
+   <!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="hero-particles"></div>
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>
+                    Pare de Comprar <span class="highlight typed-text" data-text="Protocolos,Dietas Milagrosas,Fórmulas Mágicas"></span><br>
+                    Comece um <span class="highlight">Acompanhamento Real</span>
+                </h1>
+                <p class="hero-description">Resultados duradouros só vêm com acompanhamento individualizado. Não caia em promessas de milagre sem suporte profissional.</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="counter" data-target="2000">0</span>+
+                        <p>Pacientes Atendidos</p>
+                    </div>
+                    <div class="stat-item">
+                        <span class="counter" data-target="95">0</span>%
+                        <p>Taxa de Sucesso</p>
+                    </div>
+                    <div class="stat-item">
+                        <span class="counter" data-target="8">0</span>+
+                        <p>Anos de Experiência</p>
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#planos" class="cta-button pulse-btn">
+                        <i class="fas fa-rocket"></i>
+                        Quero Acompanhamento Real
+                    </a>
+                    <button class="video-btn" onclick="openVideoModal()">
+                        <i class="fas fa-play"></i>
+                        Ver Como Funciona
+                    </button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="nutritionist-photo">
+                    <img src="DSC01899.JPG" alt="Foto do Dr. Rodrigo" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" />
+                    <div class="photo-overlay">
                         <i class="fas fa-user-md"></i>
                     </div>
-                    <h3>Consultoria 100% Personalizada</h3>
-                    <p>Plano nutricional desenvolvido especialmente para você, considerando suas preferências, rotina e objetivos específicos.</p>
-                </div>
-                
-                <div class="benefit-card reveal">
-                    <div class="benefit-icon">
-                        <i class="fas fa-headset"></i>
+                    <div class="photo-badge">
+                        <i class="fas fa-certificate"></i>
+                        CRN 12345
                     </div>
-                    <h3>Acompanhamento Contínuo</h3>
-                    <p>Suporte constante via WhatsApp e consultas de retorno para ajustes e garantir seus resultados.</p>
                 </div>
-                
-                <div class="benefit-card reveal">
-                    <div class="benefit-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Atendimento Presencial e Online</h3>
-                    <p>Flexibilidade total para você escolher como prefere ser atendido, sem perder a qualidade do serviço.</p>
-                </div>
-                
-                <div class="benefit-card reveal">
-                    <div class="benefit-icon">
-                        <i class="fas fa-microscope"></i>
-                    </div>
-                    <h3>Baseado em Evidências</h3>
-                    <p>Utilizo apenas protocolos nutricionais cientificamente comprovados para garantir sua segurança e eficácia.</p>
+                <div class="floating-elements">
+                    <div class="float-element" data-speed="2">🥗</div>
+                    <div class="float-element" data-speed="3">💪</div>
+                    <div class="float-element" data-speed="1.5">📊</div>
+                    <div class="float-element" data-speed="2.5">🎯</div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Testimonials Carousel -->
-    <section id="transformations" class="testimonials">
-        <div class="testimonials-container">
-            <div class="section-header">
-                <h2 class="section-title">Resultados Reais dos Meus Pacientes</h2>
-                <p class="section-subtitle">Veja as transformações conquistadas com minha consultoria nutricional</p>
-            </div>
-            
-            <div class="testimonials-carousel">
-                <!-- Navigation Arrows -->
-                <button class="carousel-nav carousel-prev" onclick="previousSlide()">
-                    <i class="fas fa-chevron-left"></i>
-                </button>
-                <button class="carousel-nav carousel-next" onclick="nextSlide()">
-                    <i class="fas fa-chevron-right"></i>
-                </button>
-
-                <!-- SLIDE 1 -->
-                <div class="testimonial-slide active">
-                    <div class="testimonial-photo-container">
-                        <div class="testimonial-photo-placeholder">
-                            <img src="IMG_0325.png" alt="Antes e depois de Maria Santos" class="testimonial-photo" style="max-width: 350px; border-radius: 15px;">
-                            <div class="upload-text">
-                                <strong>ANTES E DEPOIS</strong><br>
-                                da Maria Santos
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-content">
-                        <h3>Maria Santos</h3>
-                        <p>Executiva, 34 anos • Perdeu 15kg em 4 meses</p>
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"Perdi 15kg em 4 meses sem passar fome! A Dra. Ana me ensinou a ter uma relação saudável com a comida. Mudou minha vida completamente! Hoje me sinto muito mais confiante e cheia de energia."</p>
-                    </div>
-                </div>
-
-                <!-- SLIDE 2 -->
-                <div class="testimonial-slide">
-                    <div class="testimonial-photo-container">
-                        <div class="testimonial-photo-placeholder">
-                            <img src="IMG_0444.jpg" alt="Antes e depois de João Silva" class="testimonial-photo" style="max-width: 350px; border-radius: 15px;">
-                            <div class="upload-text">
-                                <strong>ANTES E DEPOIS</strong><br>
-                                do João Silva
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-content">
-                        <h3>João Silva</h3>
-                        <p>Empresário, 42 anos • Perdeu 22kg em 6 meses</p>
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"Nunca imaginei que seria tão fácil emagrecer. O plano é delicioso e me deu uma energia que não tinha há anos. Recomendo de olhos fechados! Minha esposa também ficou impressionada com os resultados."</p>
-                    </div>
-                </div>
-
-                <!-- SLIDE 3 -->
-                <div class="testimonial-slide">
-                    <div class="testimonial-photo-container">
-                        <div class="testimonial-photo-placeholder">
-                            <img src="IMG_3015.png" alt="Antes e depois de Victor Gabriel" class="testimonial-photo" style="max-width: 350px; border-radius: 15px;">
-                            <div class="upload-text">
-                                <strong>ANTES E DEPOIS</strong><br>
-                                da Victor Gabriel
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-content">
-                        <h3>Ana Paula Costa</h3>
-                        <p>Professora, 29 anos • Perdeu 12kg em 3 meses</p>
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"Resolvi meus problemas intestinais e ainda emagreci 12kg! Minha qualidade de vida melhorou 100%. Gratidão eterna pela Dra. Ana! Agora consigo dar aulas com muito mais disposição."</p>
-                    </div>
-                </div>
-
-                <!-- SLIDE 4 -->
-                <div class="testimonial-slide">
-                    <div class="testimonial-photo-container">
-                        <div class="testimonial-photo-placeholder">
-                            <img src="IMG_3021.png" alt="Antes e depois de Carlos Roberto" class="testimonial-photo" style="max-width: 350px; border-radius: 15px;">
-                            <div class="upload-text">
-                                <strong>ANTES E DEPOIS</strong><br>
-                                do Carlos Roberto
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-content">
-                        <h3>Carlos Roberto</h3>
-                        <p>Advogado, 38 anos • Perdeu 18kg em 5 meses</p>
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"Acompanhamento excepcional! A Dra. Ana sempre disponível para esclarecer dúvidas. Método que realmente funciona e transforma vidas! Consegui voltar a usar roupas que não usava há anos."</p>
-                    </div>
-                </div>
-
-                <!-- SLIDE 5 -->
-                <div class="testimonial-slide">
-                    <div class="testimonial-photo-container">
-                        <div class="testimonial-photo-placeholder">
-                            <img src="IMG_3051.jpg" alt="Antes e depois de Fernando Lima" class="testimonial-photo" style="max-width: 350px; border-radius: 15px;">
-                            <div class="upload-text">
-                                <strong>ANTES E DEPOIS</strong><br>
-                                da Fernando Lima
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-content">
-                        <h3>Fernando Lima</h3>
-                        <p>Marketing, 31 anos • Perdeu 10kg em 3 meses</p>
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"Consegui conciliar minha rotina corrida com alimentação saudável. Perdi 10kg e ganhei muito mais disposição e autoestima! O atendimento do Rodrigo se encaixa perfeitamente na vida real."</p>
-                    </div>
-                </div>
-
-                <!-- SLIDE 6 -->
-                <div class="testimonial-slide">
-                    <div class="testimonial-photo-container">
-                        <div class="testimonial-photo-placeholder">
-                            <img src="IMG_7349.png" alt="Antes e depois de Ricardo Alves" class="testimonial-photo" style="max-width: 350px; border-radius: 15px;">
-                            <div class="upload-text">
-                                <strong>ANTES E DEPOIS</strong><br>
-                                do Ricardo Alves
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-content">
-                        <h3>Ricardo Alves</h3>
-                        <p>Engenheiro, 45 anos • Perdeu 25kg em 7 meses</p>
-                        <div class="stars">★★★★★</div>
-                        <p class="testimonial-text">"Eliminei 25kg em 7 meses e aprendi a manter o peso ideal. O suporte do Rodrigo fez toda a diferença no meu sucesso! Hoje sou uma pessoa completamente diferente, mais saudável e feliz."</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Carousel Dots -->
-            <div class="carousel-dots">
-                <span class="carousel-dot active" onclick="currentSlide(1)"></span>
-                <span class="carousel-dot" onclick="currentSlide(2)"></span>
-                <span class="carousel-dot" onclick="currentSlide(3)"></span>
-                <span class="carousel-dot" onclick="currentSlide(4)"></span>
-                <span class="carousel-dot" onclick="currentSlide(5)"></span>
-                <span class="carousel-dot" onclick="currentSlide(6)"></span>
-            </div>
-        </div>
-    </section>
+    </div>
+</section>
 
     <!-- About Section -->
-    <section id="about" class="about">
+    <section class="about-section" id="sobre">
         <div class="container">
             <div class="about-content">
-                <div class="about-image reveal">
-                    <!-- ===== SUBSTITUA PELA FOTO DO NUTRICIONISTA RODRIGO NO CONSULTÓRIO ===== -->
-                    <img src="DSC01899.JPG">
-                    <div class="about-badge">
-                        <i class="fas fa-award"></i> CRN 12345/SP
+                <div class="about-image">
+                    <div class="about-photo">
+                        <div class="photo-frame">
+                            <div class="social-proof">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.9/5</span>
+                            </div>
+                             <img src="DSC01899.JPG" alt="Foto do Dr. Rodrigo" style="width: 100%; border-radius: 16px; margin-bottom: 10px;" />
+                        </div>
                     </div>
                 </div>
-                
-                <div class="about-text reveal">
-                    <h2>Conheça o Rodrigo</h2>
-                    <p>Com mais de 5 anos de experiência em nutrição clínica, dedico minha carreira a ajudar pessoas a conquistarem seus objetivos através da alimentação equilibrada e sustentável.</p>
-                    
-                    <p>Especializado em emagrecimento saudável e reeducação alimentar, já atendi mais de 500 pacientes, sempre com foco em resultados duradouros e melhoria da qualidade de vida.</p>
-                    
-                    <p>Minha abordagem é baseada em evidências científicas e totalmente personalizada. Acredito que cada pessoa é única e merece um plano nutricional que se adapte ao seu estilo de vida.</p>
-                    
+                <div class="about-text">
+                    <h2>Conheça o Nutricionista Rodrigo</h2>
+                    <div class="typing-container">
+                        <p class="typing-text">Especialista em nutrição clínica e esportiva com mais de 8 anos de experiência transformando vidas através da alimentação.</p>
+                    </div>
+                    <p>Formado pela Universidade de São Paulo (USP) com pós-graduação em Nutrição Esportiva e Clínica. Mais de 2.000 pacientes atendidos com resultados comprovados.</p>
                     <div class="credentials">
-                        <div class="credential">CRN 12345/SP</div>
-                        <div class="credential">Especialista em Nutrição Clínica</div>
-                        <div class="credential">Pós-graduado em Nutrição Esportiva</div>
-                        <div class="credential">5+ anos de experiência</div>
-                        <div class="credential">500+ pacientes atendidos</div>
-                        <div class="credential">Atendimento presencial e online</div>
+                        <div class="credential">
+                            <div class="credential-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <h4>CRN 12345</h4>
+                            <p>Nutricionista Registrado</p>
+                        </div>
+                        <div class="credential">
+                            <div class="credential-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h4 class="counter" data-target="8">0</h4>+ Anos
+                            <p>De Experiência</p>
+                        </div>
+                        <div class="credential">
+                            <div class="credential-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h4 class="counter" data-target="2000">0</h4>+
+                            <p>Pacientes Atendidos</p>
+                        </div>
+                        <div class="credential">
+                            <div class="credential-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <h4 class="counter" data-target="95">0</h4>%
+                            <p>Taxa de Sucesso</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- How it Works -->
-    <section id="how-it-works" class="how-it-works">
+    <!-- Truth Section -->
+    <section class="truth-section" id="verdade">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Como funciona meu atendimento</h2>
-                <p class="section-subtitle">Um processo estruturado para sua transformação com saúde</p>
+            <h2>A Verdade Que Ninguém Te Conta</h2>
+            <div class="truth-grid">
+                <div class="truth-card">
+                    <div class="truth-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3>❌ Você Nunca Terá Resultados Duradouros</h3>
+                    <p><strong>Se não tiver um acompanhamento individualizado para seu objetivo e individualidade.</strong> Protocolos genéricos não funcionam para todos. Cada pessoa tem suas particularidades, metabolismo único e necessidades específicas.</p>
+                </div>
+                <div class="truth-image">
+                    <div class="image-container">
+                        <div class="image-overlay">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <img src="IMG_0325.png" alt="Gráfico de resultados" style="width: 100%; border-radius: 16px; margin-bottom: 10px;" />
+                    </div>
+                </div>
             </div>
-            
-            <div class="steps-grid">
-                <div class="step reveal">
-                    <div class="step-number">1</div>
-                    <h3>Agendamento</h3>
-                    <p>Entre em contato comigo via WhatsApp e escolha o melhor horário para sua consulta presencial ou online.</p>
+            <div class="truth-grid">
+                <div class="truth-image">
+                    <div class="image-container">
+                        <div class="image-overlay warning">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <img src="IMG_0444.jpg" alt="Protocolos genéricos" style="width: 100%; border-radius: 16px; margin-bottom: 10px;" />
+                    </div>
                 </div>
-                
-                <div class="step reveal">
-                    <div class="step-number">2</div>
-                    <h3>Primeira Consulta</h3>
-                    <p>Avaliação completa do seu histórico, exames, rotina alimentar e objetivos para criar seu plano personalizado.</p>
-                </div>
-                
-                <div class="step reveal">
-                    <div class="step-number">3</div>
-                    <h3>Plano Nutricional</h3>
-                    <p>Receba seu cardápio exclusivo, desenvolvido especialmente para suas necessidades e preferências alimentares.</p>
-                </div>
-                
-                <div class="step reveal">
-                    <div class="step-number">4</div>
-                    <h3>Acompanhamento</h3>
-                    <p>Suporte contínuo via WhatsApp e consultas de retorno para ajustes e garantir seus resultados.</p>
+                <div class="truth-card">
+                    <div class="truth-icon warning">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h3>⚠️ Pare de Jogar Dinheiro Fora</h3>
+                    <p><strong>Não adianta pagar protocolos de emagrecimento caros que prometem milagre se não tiver o mais importante: ACOMPANHAMENTO.</strong> O sucesso está no suporte diário, nos ajustes constantes e na orientação profissional.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Guarantees & Differentials Section -->
-    <section class="guarantees">
+    <!-- Process Section -->
+    <section class="process-section" id="como-funciona">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Por que Escolher Minha Consultoria Nutricional?</h2>
-                <p class="section-subtitle">Diferenciais únicos que fazem toda a diferença nos seus resultados</p>
-            </div>
-            
-            <div class="guarantees-grid">
-                <!-- Guarantee 1 -->
-                <div class="guarantee-card reveal">
-                    <div class="guarantee-icon">
-                        <i class="fas fa-shield-alt"></i>
+            <h2>Como Funciona o Processo</h2>
+            <div class="process-timeline">
+                <div class="timeline-line"></div>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-image">
+                            <i class="fas fa-clipboard-list"></i>
+                            <div class="step-badge">Inicial</div>
+                        </div>
+                        <h3>Avaliação Completa</h3>
+                        <p>Análise detalhada do seu histórico alimentar, exames, objetivos e rotina para criar um plano totalmente personalizado.</p>
                     </div>
-                    <h3>Atendimento Personalizado</h3>
-                    <p>Cada plano nutricional é único e desenvolvido exclusivamente para você, considerando sua rotina, preferências e objetivos específicos.</p>
-                    <div class="guarantee-badge">100% Personalizado</div>
-                </div>
-
-                <!-- Guarantee 2 -->
-                <div class="guarantee-card reveal">
-                    <div class="guarantee-icon">
-                        <i class="fas fa-headset"></i>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-image">
+                            <i class="fas fa-user-cog"></i>
+                            <div class="step-badge">Personal</div>
+                        </div>
+                        <h3>Estratégia Individual</h3>
+                        <p>Desenvolvimento de protocolo nutricional único, adaptado às suas necessidades específicas e preferências alimentares.</p>
                     </div>
-                    <h3>Suporte Contínuo</h3>
-                    <p>Acesso direto comigo via WhatsApp para tirar dúvidas, ajustes no cardápio e motivação constante durante todo o processo.</p>
-                    <div class="guarantee-badge">Sempre Disponível</div>
-                </div>
-
-                <!-- Guarantee 3 -->
-                <div class="guarantee-card reveal">
-                    <div class="guarantee-icon">
-                        <i class="fas fa-award"></i>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-image">
+                            <i class="fas fa-headset"></i>
+                            <div class="step-badge">24/7</div>
+                        </div>
+                        <h3>Suporte Diário</h3>
+                        <p>Monitoramento constante com ajustes no plano, esclarecimento de dúvidas e acompanhamento dos resultados.</p>
                     </div>
-                    <h3>Baseado em Evidências</h3>
-                    <p>Utilizo apenas protocolos nutricionais cientificamente comprovados, garantindo segurança e eficácia nos seus resultados.</p>
-                    <div class="guarantee-badge">Cientificamente Comprovado</div>
-                </div>
-
-                <!-- Guarantee 4 -->
-                <div class="guarantee-card reveal">
-                    <div class="guarantee-icon">
-                        <i class="fas fa-infinity"></i>
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div class="step-image">
+                            <i class="fas fa-trophy"></i>
+                            <div class="step-badge">Real</div>
+                        </div>
+                        <h3>Transformação Real</h3>
+                        <p>Mudanças duradouras na sua saúde, composição corporal e qualidade de vida através de hábitos sólidos.</p>
                     </div>
-                    <h3>Resultados Duradouros</h3>
-                    <p>Foco em mudanças de hábitos reais e sustentáveis, para que você mantenha seus resultados a longo prazo.</p>
-                    <div class="guarantee-badge">Resultado Duradouro</div>
-                </div>
-            </div>
-
-            <!-- Statistics Section -->
-            <div class="stats-section">
-                <h3 class="stats-title">Meus Resultados Falam Por Si</h3>
-                <div class="stats-grid">
-                    <div class="stat-card reveal">
-                        <div class="stat-number">500+</div>
-                        <div class="stat-description">Pacientes Atendidos</div>
-                    </div>
-                    <div class="stat-card reveal">
-                        <div class="stat-number">92%</div>
-                        <div class="stat-description">Taxa de Sucesso</div>
-                    </div>
-                    <div class="stat-card reveal">
-                        <div class="stat-number">12kg</div>
-                        <div class="stat-description">Perda Média de Peso</div>
-                    </div>
-                    <div class="stat-card reveal">
-                        <div class="stat-number">4.8★</div>
-                        <div class="stat-description">Avaliação Média</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CTA Section -->
-            <div class="guarantee-cta">
-                <h3>Pronto(a) para Começar Sua Transformação?</h3>
-                <p>Agende sua consulta comigo e dê o primeiro passo para conquistar seus objetivos com saúde</p>
-                <a href="https://wa.me/5511999999999?text=Olá Rodrigo! Quero agendar minha consulta nutricional e começar minha transformação" class="btn btn-primary btn-large">
-                    <i class="fab fa-whatsapp"></i>
-                    Agendar Minha Consulta Agora
-                </a>
-                <div class="trust-indicators">
-                    <span><i class="fas fa-lock"></i> Atendimento Seguro e Sigiloso</span>
-                    <span><i class="fas fa-medal"></i> CRN Ativo e Verificado</span>
-                    <span><i class="fas fa-heart"></i> +500 Pessoas Transformadas</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FAQ -->
-    <section id="faq" class="faq">
-        <div class="faq-container">
-            <div class="section-header">
-                <h2 class="section-title">Perguntas Frequentes</h2>
-                <p class="section-subtitle">Tire suas principais dúvidas sobre minha consultoria nutricional</p>
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="container">
+            <h2>Veja Como Funciona o Acompanhamento Real</h2>
+            <div class="video-container" onclick="openVideoModal()">
+                <div class="video-preview">
+                    <div class="play-button pulse">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="video-info">
+                        <span>Assista agora</span>
+                        <p>Entenda todo o processo</p>
+                    </div>
+                </div>
+                <div class="video-stats">
+                    <div class="stat">
+                        <i class="fas fa-eye"></i>
+                        <span class="counter" data-target="10000">0</span> visualizações
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-clock"></i>
+                        5:30 min
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories Section -->
+    <section class="success-stories" id="resultados">
+        <div class="container">
+            <h2>Milhares de Histórias de Sucesso...</h2>
+            <p class="subtitle">Você é o Próximo?</p>
+            <div class="carousel-container">
+                <div class="carousel-controls">
+                    <button class="carousel-btn prev-btn" onclick="pauseCarousel()">
+                        <i class="fas fa-pause"></i>
+                    </button>
+                    <button class="carousel-btn next-btn" onclick="resumeCarousel()">
+                        <i class="fas fa-play"></i>
+                    </button>
+                </div>
+                <div class="carousel-track" id="carousel-track">
+                    <!-- Cards com uma única foto -->
+                    <div class="success-card">
+                        <div class="success-photo">
+                            <img src="IMG_3015.png" alt="Transformação Maria S." style="width: 100%; height: 100%; object-fit: cover;" />
+                        </div>
+                        <div class="success-info">
+                            <h4>MARIA S.</h4>
+                            <p>-15kg em 4 meses</p>
+                            <div class="success-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="success-card">
+                        <div class="success-photo">
+                            <img src="IMG_3021.png" alt="Transformação Maria S." style="width: 100%; height: 100%; object-fit: cover;" />
+                        </div>
+                        
+                        <div class="success-info">
+                            <h4>JOÃO M.</h4>
+                            <p>Diabetes controlada</p>
+                            <div class="success-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="success-card">
+                        <div class="success-photo">
+                            <img src="IMG_3051.jpg" alt="Transformação Maria S." style="width: 100%; height: 100%; object-fit: cover;" />
+                        </div>
+                        <div class="success-info">
+                            <h4>ANA R.</h4>
+                            <p>Energia renovada</p>
+                            <div class="success-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="success-card">
+                        <div class="success-photo">
+                            <img src="IMG_7420.PNG" alt="Transformação Maria S." style="width: 100%; height: 100%; object-fit: cover;" />
+                        </div>
+                        <div class="success-info">
+                            <h4>CARLOS P.</h4>
+                            <p>-22kg sustentáveis</p>
+                            <div class="success-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="success-card">
+                        <div class="success-photo">
+                            <img src="IMG_2020.PNG.jpg" alt="Transformação Maria S." style="width: 100%; height: 100%; object-fit: cover;" />
+                        </div>
+                        <div class="success-info">
+                            <h4>LUCIA F.</h4>
+                            <p>Colesterol normalizado</p>
+                            <div class="success-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="success-card">
+                        <div class="success-photo">
+                             <img src="IMG_7420.PNG" alt="Transformação Maria S." style="width: 100%; height: 100%; object-fit: cover;" />
+                        </div>
+                        <div class="success-info">
+                            <h4>PEDRO T.</h4>
+                            <p>Performance atlética</p>
+                            <div class="success-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="success-card">
+                        <div class="success-photo">
+                            <img src="IMG_7420.PNG" alt="Transformação Maria S." style="width: 100%; height: 100%; object-fit: cover;" />
+                        </div>
+                        <div class="success-info">
+                            <h4>FERNANDA L.</h4>
+                            <p>Hipertensão controlada</p>
+                            <div class="success-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="success-card">
+                        <div class="success-photo">
+                           <img src="IMG_7420.PNG" alt="Transformação Maria S." style="width: 100%; height: 100%; object-fit: cover;" />
+                        </div>
+                        <div class="success-info">
+                            <h4>RICARDO M.</h4>
+                            <p>Ganho massa muscular</p>
+                            <div class="success-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DUPLICADOS PARA LOOP INFINITO -->
+                    <div class="success-card">
+                        <div class="success-photo">
+                            <img src="IMG_3015.png" alt="Transformação Maria S." style="width: 100%; height: 100%; object-fit: cover;" />
+                        </div>
+                        <div class="success-info">
+                            <h4>MARIA S.</h4>
+                            <p>-15kg em 4 meses</p>
+                            <div class="success-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="success-card">
+                        <div class="success-photo">
+                           <img src="IMG_7420.PNG" alt="Transformação Maria S." style="width: 100%; height: 100%; object-fit: cover;" />
+                        </div>
+                        <div class="success-info">
+                            <h4>JOÃO M.</h4>
+                            <p>Diabetes controlada</p>
+                            <div class="success-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="success-card">
+                        <div class="success-photo">
+                          <img src="IMG_7420.PNG" alt="Transformação Maria S." style="width: 100%; height: 100%; object-fit: cover;" />
+                        </div>
+                        <div class="success-info">
+                            <h4>ANA R.</h4>
+                            <p>Energia renovada</p>
+                            <div class="success-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="success-card">
+                        <div class="success-photo">
+                            <div class="photo-placeholder">📸</div>
+                        </div>
+                        <div class="success-info">
+                            <h4>CARLOS P.</h4>
+                            <p>-22kg sustentáveis</p>
+                            <div class="success-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-progress">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plans Section -->
+    <section class="plans-section" id="planos">
+        <div class="container">
+            <h2>Escolha Seu Acompanhamento</h2>
+            <p class="subtitle">Duas modalidades de acompanhamento real para você transformar sua vida com suporte profissional</p>
+            
+            <!-- Plan Comparison Toggle -->
+            <div class="plan-toggle">
+                <button class="toggle-btn active" data-plan="online">
+                    <i class="fas fa-laptop"></i>
+                    Online
+                </button>
+                <button class="toggle-btn" data-plan="presencial">
+                    <i class="fas fa-handshake"></i>
+                    Presencial
+                </button>
             </div>
             
-            <div class="faq-list">
-                <div class="faq-item reveal">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Você atende por planos de saúde?</span>
-                        <i class="fas fa-chevron-down faq-icon"></i>
+            <!-- Plano Online -->
+            <div class="plan-type online active">
+                <div class="plan-header">
+                    <div class="plan-icon">
+                        <i class="fas fa-laptop-medical"></i>
+                        <span>ÍCONE ONLINE</span>
                     </div>
-                    <div class="faq-answer">
-                        <p>Atualmente trabalho como particular, mas forneço todos os documentos necessários para você solicitar reembolso junto ao seu plano de saúde. Muitos pacientes conseguem reembolso parcial ou total.</p>
+                    <div class="plan-title">
+                        <h3>Acompanhamento Online</h3>
+                        <div class="plan-popular">
+                            <i class="fas fa-fire"></i>
+                            Mais Popular
+                        </div>
                     </div>
-                </div>
-                
-                <div class="faq-item reveal">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Como funciona o atendimento online?</span>
-                        <i class="fas fa-chevron-down faq-icon"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>O atendimento online tem a mesma qualidade do presencial. Realizamos videochamada, você recebe todo material por e-mail e mantenho contato direto via WhatsApp para suporte.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item reveal">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Quanto custa a consulta?</span>
-                        <i class="fas fa-chevron-down faq-icon"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>O valor da consulta varia conforme o tipo de atendimento. Entre em contato comigo via WhatsApp para conhecer os valores atualizados e condições especiais.</p>
+                    <div class="plan-icon">
+                        <i class="fas fa-video"></i>
+                        <span>CONSULTA ONLINE</span>
                     </div>
                 </div>
-                
-                <div class="faq-item reveal">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Em quanto tempo verei resultados?</span>
-                        <i class="fas fa-chevron-down faq-icon"></i>
+                <div class="plan-content">
+                    <div class="plan-features">
+                        <div class="feature-item">
+                            <div class="feature-number">01</div>
+                            <div class="feature-content">
+                                <h4>Plano Alimentar + Orientações Gerais</h4>
+                                <p>Explicando todo o protocolo que lhe foi passado</p>
+                                <div class="feature-tags">
+                                    <span class="tag">Personalizado</span>
+                                    <span class="tag">Completo</span>
+                                </div>
+                            </div>
+                            <div class="feature-status">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">02</div>
+                            <div class="feature-content">
+                                <h4>Ficha de Treino Individualizada</h4>
+                                <p>Completa e personalizada para seus objetivos</p>
+                                <div class="feature-tags">
+                                    <span class="tag">Individual</span>
+                                    <span class="tag">Objetivos</span>
+                                </div>
+                            </div>
+                            <div class="feature-status">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">03</div>
+                            <div class="feature-content">
+                                <h4>Vídeos Explicativos</h4>
+                                <p>De exercícios / mobilidades / alongamentos</p>
+                                <div class="feature-tags">
+                                    <span class="tag">Didático</span>
+                                    <span class="tag">Visual</span>
+                                </div>
+                            </div>
+                            <div class="feature-status">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">04</div>
+                            <div class="feature-content">
+                                <h4>Suporte Diário</h4>
+                                <p>WhatsApp / e-mails para tirar dúvidas referente ao protocolo passado</p>
+                                <div class="feature-tags">
+                                    <span class="tag">24/7</span>
+                                    <span class="tag">Suporte</span>
+                                </div>
+                            </div>
+                            <div class="feature-status">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">05</div>
+                            <div class="feature-content">
+                                <h4>Análise e Solicitação de Exames</h4>
+                                <p>Laboratoriais para acompanhamento completo</p>
+                                <div class="feature-tags">
+                                    <span class="tag">Científico</span>
+                                    <span class="tag">Completo</span>
+                                </div>
+                            </div>
+                            <div class="feature-status">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">06</div>
+                            <div class="feature-content">
+                                <h4>Acesso ao Grupo Fechado</h4>
+                                <p>Instagram com informações relevantes sobre dietas, treinos e tudo que envolve o meio fitness</p>
+                                <div class="feature-tags">
+                                    <span class="tag">Comunidade</span>
+                                    <span class="tag">Exclusivo</span>
+                                </div>
+                            </div>
+                            <div class="feature-status">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
                     </div>
-                    <div class="faq-answer">
-                        <p>Os primeiros resultados aparecem entre 2-3 semanas, incluindo melhora na disposição e bem-estar. Resultados mais significativos são observados a partir do segundo mês, sempre respeitando seu ritmo individual.</p>
+                    <div class="plan-pricing">
+                        <h4>Valores</h4>
+                        <div class="price-items">
+                            <div class="price-item">
+                                <div class="price">R$ 350,00</div>
+                                <div class="period">Primeiro Mês (Validade 4 semanas)</div>
+                            </div>
+                            <div class="price-item">
+                                <div class="price">R$ 300,00</div>
+                                <div class="period">Segundo e Terceiro Mês (Validade 4 semanas)</div>
+                            </div>
+                            <div class="price-item">
+                                <div class="price">R$ 250,00</div>
+                                <div class="period">Quarto Mês em Diante (Validade 4 semanas)</div>
+                            </div>
+                        </div>
+                        <div class="promo-price">
+                            <div class="promo-badge">
+                                <i class="fas fa-star"></i>
+                                OFERTA ESPECIAL
+                            </div>
+                            <h5>PLANO PROMOCIONAL TRIMESTRAL</h5>
+                            <div class="price">R$ 889,00</div>
+                            <div class="period">(Validade 12 semanas)</div>
+                            <div class="savings">Economia de R$ 161,00</div>
+                        </div>
+                        <div class="observation">
+                            <h5>OBSERVAÇÃO</h5>
+                            <p>No ACOMPANHAMENTO ONLINE tem a opção também de vídeo chamada (40min a 1h) o valor fica R$ 500,00 para a primeira vídeo chamada - a partir da segunda - fica R$ 400,00 cada vídeo chamada.</p>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="faq-item reveal">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>O cardápio é muito restritivo?</span>
-                        <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+
+            <!-- Plano Presencial -->
+            <div class="plan-type presencial">
+                <div class="plan-header">
+                    <div class="plan-icon">
+                        <i class="fas fa-user-md"></i>
+                        <span>ÍCONE PRESENCIAL</span>
                     </div>
-                    <div class="faq-answer">
-                        <p>Não! Trabalho com flexibilidade e sustentabilidade. O plano considera suas preferências e permite adaptações para vida social. Nada de dietas malucas!</p>
+                    <div class="plan-title">
+                        <h3>Acompanhamento Presencial</h3>
+                        <div class="subtitle">(Confirmar se tem vaga disponível)</div>
                     </div>
-                </div>
-                
-                <div class="faq-item reveal">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Qual a frequência das consultas de retorno?</span>
-                        <i class="fas fa-chevron-down faq-icon"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Recomendo retornos quinzenais ou mensais, dependendo de cada caso. O acompanhamento é personalizado conforme sua evolução e necessidades.</p>
+                    <div class="plan-icon">
+                        <i class="fas fa-clinic-medical"></i>
+                        <span>CONSULTA PRESENCIAL</span>
                     </div>
                 </div>
-                
-                <div class="faq-item reveal">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Você prescreve suplementos?</span>
-                        <i class="fas fa-chevron-down faq-icon"></i>
+                <div class="plan-content">
+                    <div class="plan-features">
+                        <div class="feature-item">
+                            <div class="feature-number">01</div>
+                            <div class="feature-content">
+                                <h4>Plano Alimentar + Orientações Gerais</h4>
+                                <p>Explicando todo o protocolo que lhe foi passado</p>
+                                <div class="feature-tags">
+                                    <span class="tag">Personalizado</span>
+                                    <span class="tag">Completo</span>
+                                </div>
+                            </div>
+                            <div class="feature-status">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">02</div>
+                            <div class="feature-content">
+                                <h4>Atendimento de 40Min. a 1h00</h4>
+                                <p>Consulta presencial personalizada</p>
+                                <div class="feature-tags">
+                                    <span class="tag">Presencial</span>
+                                    <span class="tag">Dedicado</span>
+                                </div>
+                            </div>
+                            <div class="feature-status">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">03</div>
+                            <div class="feature-content">
+                                <h4>Lembrete de Resumo Semanal</h4>
+                                <p>Enviado semanalmente diretamente no WhatsApp do paciente</p>
+                                <div class="feature-tags">
+                                    <span class="tag">Semanal</span>
+                                    <span class="tag">Lembrete</span>
+                                </div>
+                            </div>
+                            <div class="feature-status">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">04</div>
+                            <div class="feature-content">
+                                <h4>Avaliação Completa</h4>
+                                <p>Postural e funcional / Avaliação Antropométrica + Anamnese</p>
+                                <div class="feature-tags">
+                                    <span class="tag">Completa</span>
+                                    <span class="tag">Científica</span>
+                                </div>
+                            </div>
+                            <div class="feature-status">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">05</div>
+                            <div class="feature-content">
+                                <h4>Ficha de Treino Individualizada</h4>
+                                <p>Completa e personalizada</p>
+                                <div class="feature-tags">
+                                    <span class="tag">Individual</span>
+                                    <span class="tag">Treino</span>
+                                </div>
+                            </div>
+                            <div class="feature-status">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">06</div>
+                            <div class="feature-content">
+                                <h4>Vídeos Explicativos</h4>
+                                <p>De exercícios / mobilidades / alongamentos</p>
+                                <div class="feature-tags">
+                                    <span class="tag">Didático</span>
+                                    <span class="tag">Visual</span>
+                                </div>
+                            </div>
+                            <div class="feature-status">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">07</div>
+                            <div class="feature-content">
+                                <h4>Suporte Diário</h4>
+                                <p>WhatsApp / e-mails para tirar dúvidas referente ao protocolo passado</p>
+                                <div class="feature-tags">
+                                    <span class="tag">24/7</span>
+                                    <span class="tag">Suporte</span>
+                                </div>
+                            </div>
+                            <div class="feature-status">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">08</div>
+                            <div class="feature-content">
+                                <h4>Suporte Especializado</h4>
+                                <p>Caso esteja fazendo uso de fármacos/Suplementos específicos</p>
+                                <div class="feature-tags">
+                                    <span class="tag">Especializado</span>
+                                    <span class="tag">Farmácia</span>
+                                </div>
+                            </div>
+                            <div class="feature-status">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">09</div>
+                            <div class="feature-content">
+                                <h4>Análise e Solicitação de Exames</h4>
+                                <p>Laboratoriais para acompanhamento completo</p>
+                                <div class="feature-tags">
+                                    <span class="tag">Exames</span>
+                                    <span class="tag">Científico</span>
+                                </div>
+                            </div>
+                            <div class="feature-status">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-number">10</div>
+                            <div class="feature-content">
+                                <h4>Acesso ao Grupo Fechado</h4>
+                                <p>Instagram com informações relevantes sobre dietas, treinos e tudo que envolve o meio fitness</p>
+                                <div class="feature-tags">
+                                    <span class="tag">Comunidade</span>
+                                    <span class="tag">Exclusivo</span>
+                                </div>
+                            </div>
+                            <div class="feature-status">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
                     </div>
-                    <div class="faq-answer">
-                        <p>Sim, quando necessário e baseado em evidências científicas. Priorizo sempre a alimentação como fonte principal, usando suplementos apenas quando realmente precisamos potencializar resultados.</p>
+                    <div class="plan-pricing">
+                        <h4>Valores</h4>
+                        <div class="price-items">
+                            <div class="price-item">
+                                <div class="price">R$ 450,00</div>
+                                <div class="period">Primeiro Mês (Validade 4 semanas)</div>
+                            </div>
+                            <div class="price-item">
+                                <div class="price">R$ 350,00</div>
+                                <div class="period">Segundo Mês em Diante (Cada consulta + atualização de protocolo | Validade 4 semanas)</div>
+                            </div>
+                        </div>
+                        <div class="promo-price">
+                            <div class="promo-badge">
+                                <i class="fas fa-crown"></i>
+                                OFERTA PREMIUM
+                            </div>
+                            <h5>PLANO PROMOCIONAL TRIMESTRAL</h5>
+                            <div class="price">R$ 979,00</div>
+                            <div class="period">(Validade 12 semanas)</div>
+                            <div class="savings">Economia de R$ 171,00</div>
+                        </div>
+                        <div class="observation">
+                            <h5>OBSERVAÇÃO</h5>
+                            <p>Vale ressaltar que os VALORES COBRADOS não se baseiam apenas nas CONSULTAS E MONTAGENS de protocolos, mas também no suporte e acompanhamento treino/dieta /dúvidas que são oferecidas diariamente ao aluno/paciente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contato">
+        <div class="container">
+            <h2>Entre em Contato</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Fale Comigo</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Telefone</h4>
+                            <p>(11) 99999-9999</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>contato@rodrigonutricao.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Localização</h4>
+                            <p>São Paulo, SP</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-cta">
+                    <div class="cta-card">
+                        <h3>Pronto para Começar?</h3>
+                        <p>Clique no botão abaixo e vamos conversar sobre seus objetivos!</p>
+                        <a href="https://wa.me/5511999999999" class="whatsapp-cta" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                            Falar no WhatsApp
+                        </a>
                     </div>
                 </div>
             </div>
@@ -511,45 +875,72 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3><i class="fas fa-leaf"></i> Rodrigo Nutricionista</h3>
-                    <p>Transformando vidas através da consultoria nutricional personalizada e baseada em evidências há mais de 5 anos.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <h4>Rodrigo Nutrição</h4>
+                    <p>Acompanhamento nutricional real, não apenas protocolos. Resultados duradouros baseados em ciência e suporte individualizado.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook"></i>
+                        </a>
                     </div>
                 </div>
-                
                 <div class="footer-section">
-                    <h3>Contato Direto</h3>
-                    <p><i class="fab fa-whatsapp"></i> (11) 99999-9999</p>
-                    <p><i class="fas fa-envelope"></i> contato@draanasilva.com.br</p>
-                    <p><i class="fas fa-map-marker-alt"></i> São Paulo - SP</p>
-                    <p><i class="fas fa-clock"></i> Seg à Sex: 8h às 18h</p>
+                    <h4>Acompanhamentos</h4>
+                    <ul class="footer-links">
+                        <li><a href="#planos">Acompanhamento Online</a></li>
+                        <li><a href="#planos">Acompanhamento Presencial</a></li>
+                        <li><a href="#sobre">Reeducação Alimentar</a></li>
+                        <li><a href="#sobre">Nutrição Esportiva</a></li>
+                    </ul>
                 </div>
-                
                 <div class="footer-section">
-                    <h3>Informações Legais</h3>
-                    <p><strong>CRN-3 12345/SP</strong></p>
-                    <p>Nutricionista Clínica e Funcional</p>
-                    <p>Registro CFN nº 12345</p>
-                    <p style="font-size: 0.875rem; opacity: 0.8; margin-top: 1rem;">
-                        Este site não substitui consulta médica. Sempre consulte seu médico.
-                    </p>
+                    <h4>Contato</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://wa.me/5511999999999" target="_blank">📱 (11) 99999-9999</a></li>
+                        <li><a href="mailto:contato@rodrigonutricao.com">📧 contato@rodrigonutricao.com</a></li>
+                        <li>📍 São Paulo, SP</li>
+                    </ul>
                 </div>
             </div>
-            
             <div class="footer-bottom">
-                <p>&copy; 2025 Rodrigo Nutricionista. Todos os direitos reservados.</p>
+                <p>&copy; 2025 Rodrigo Nutrição - Acompanhamento Real, Resultados Reais</p>
             </div>
         </div>
     </footer>
 
-    <!-- Floating WhatsApp -->
-    <a href="https://wa.me/5511999999999?text=Olá Rodrigo! Vi sua página e quero agendar uma consulta nutricional" class="whatsapp-float">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <!-- Video Modal -->
+    <div id="video-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeVideoModal()">&times;</span>
+            <div class="video-wrapper">
+                <h3>Como Funciona o Acompanhamento</h3>
+                <div class="video-placeholder">
+                    <i class="fas fa-play-circle"></i>
+                    <p>Vídeo explicativo sobre o processo completo de acompanhamento nutricional</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WhatsApp Floating Button -->
+    <div class="whatsapp-float" id="whatsapp-float">
+        <a href="https://wa.me/5511999999999" target="_blank" class="whatsapp-button">
+            <i class="fab fa-whatsapp"></i>
+            <span class="whatsapp-text">Fale Conosco</span>
+        </a>
+        <div class="whatsapp-pulse"></div>
+    </div>
+
+    <!-- Back to Top -->
+    <button id="back-to-top" class="back-to-top" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script src="script.js"></script>
 </body>
 </html>
