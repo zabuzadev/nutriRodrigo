@@ -578,152 +578,326 @@ body {
 }
 
 /* ========================================
-   ABOUT SECTION
+   CORREÇÃO ESPECÍFICA - SEÇÃO SOBRE
+   Adicione este CSS para corrigir a foto cortada no mobile
 ======================================== */
+/* ========================================
+   LAYOUT LADO A LADO - SEÇÃO SOBRE MOBILE
+   Foto ao lado do texto com card menor
+======================================== */
+/* ========================================
+   LAYOUT COMPACTO MOBILE - CARD PEQUENO
+   Foto pequena ao lado, texto otimizado
+======================================== */
+
+/* Desktop - Layout normal */
 .about-section {
-    padding: 100px 0;
+    padding: 80px 0;
     background: white;
+    overflow: hidden;
 }
 
 .about-content {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    gap: 60px;
+    gap: 50px;
     align-items: center;
-}
-
-.about-image {
-    text-align: center;
+    width: 100%;
 }
 
 .about-photo {
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     height: 350px;
-    background: var(--gradient-secondary);
-    border-radius: var(--border-radius-large);
-    box-shadow: var(--shadow-large);
+    background: linear-gradient(135deg, #4a8c57, #6bb76a);
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    font-weight: 600;
     margin: 0 auto;
     position: relative;
     overflow: hidden;
-    transition: all var(--transition-normal);
+    transition: all 0.3s ease;
 }
 
-.about-photo:hover {
-    transform: scale(1.02);
-}
-
-.photo-frame {
-    position: relative;
+.about-photo img {
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    object-fit: cover;
+    object-position: center;
 }
 
-.social-proof {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(255, 255, 255, 0.9);
-    color: var(--warning-color);
-    padding: 8px 12px;
-    border-radius: var(--border-radius-medium);
-    font-size: var(--font-size-xs);
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 4px;
+/* MOBILE - Layout compacto lado a lado */
+@media (max-width: 768px) {
+    .about-section {
+        padding: 50px 0;
+    }
+    
+    .about-content {
+        grid-template-columns: 100px 1fr; /* Foto bem pequena */
+        gap: 16px;
+        align-items: flex-start;
+        padding: 0;
+    }
+    
+    /* Card da foto bem compacto */
+    .about-photo {
+        width: 100px;
+        height: 120px;
+        max-width: 100px;
+        border-radius: 16px;
+        margin: 0;
+        flex-shrink: 0;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Badge de avaliação menor */
+    .social-proof {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: rgba(255, 255, 255, 0.95);
+        color: #f39c12;
+        padding: 2px 5px;
+        border-radius: 6px;
+        font-size: 0.5rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+    }
+    
+    .social-proof i {
+        font-size: 0.4rem;
+    }
+    
+    /* Texto otimizado para mobile */
+    .about-text {
+        text-align: left;
+        padding-right: 8px;
+    }
+    
+    .about-text h2 {
+        font-size: 1.4rem;
+        margin-bottom: 12px;
+        line-height: 1.2;
+        color: #1a1a1a;
+        font-weight: 700;
+    }
+    
+    .about-text p {
+        font-size: 0.85rem;
+        line-height: 1.5;
+        margin-bottom: 12px;
+        color: #4a4a4a;
+    }
+    
+    /* Typing effect simplificado para mobile */
+    .typing-text {
+        font-size: 0.8rem;
+        line-height: 1.5;
+        white-space: normal;
+        border-right: none;
+        animation: none;
+        color: #4a8c57;
+        font-weight: 600;
+    }
+    
+    /* Credenciais em layout horizontal compacto */
+    .credentials {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 16px;
+        justify-content: flex-start;
+    }
+    
+    .credential {
+        background: #f8fffe;
+        padding: 8px 10px;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 0.7rem;
+        min-width: 70px;
+        flex: 1;
+        max-width: calc(50% - 4px);
+        border: 1px solid #e8f5f3;
+    }
+    
+    .credential-icon {
+        width: 20px;
+        height: 20px;
+        background: linear-gradient(135deg, #4a8c57, #6bb76a);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 4px;
+        color: white;
+        font-size: 0.6rem;
+    }
+    
+    .credential h4 {
+        font-size: 0.7rem;
+        margin-bottom: 2px;
+        color: #2d5a3d;
+        font-weight: 600;
+    }
+    
+    .credential p {
+        font-size: 0.6rem;
+        margin: 0;
+        color: #4a4a4a;
+        line-height: 1.2;
+    }
 }
 
-.about-text h2 {
-    font-size: clamp(2rem, 6vw, var(--font-size-4xl));
-    color: var(--dark-color);
-    margin-bottom: 30px;
-    font-weight: 700;
+/* MOBILE - Celulares pequenos */
+@media (max-width: 480px) {
+    .about-section {
+        padding: 40px 0;
+    }
+    
+    .about-content {
+        grid-template-columns: 90px 1fr;
+        gap: 14px;
+    }
+    
+    .about-photo {
+        width: 90px;
+        height: 110px;
+        max-width: 90px;
+        border-radius: 14px;
+    }
+    
+    .social-proof {
+        top: 3px;
+        right: 3px;
+        padding: 1px 3px;
+        font-size: 0.45rem;
+        border-radius: 4px;
+    }
+    
+    .about-text h2 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+    
+    .about-text p {
+        font-size: 0.8rem;
+        margin-bottom: 10px;
+    }
+    
+    .typing-text {
+        font-size: 0.75rem;
+    }
+    
+    .credentials {
+        gap: 6px;
+        margin-top: 14px;
+    }
+    
+    .credential {
+        padding: 6px 8px;
+        border-radius: 8px;
+        min-width: 60px;
+    }
+    
+    .credential-icon {
+        width: 18px;
+        height: 18px;
+        font-size: 0.55rem;
+        margin-bottom: 3px;
+    }
+    
+    .credential h4 {
+        font-size: 0.65rem;
+    }
+    
+    .credential p {
+        font-size: 0.55rem;
+    }
 }
 
-.typing-container {
-    margin-bottom: 20px;
+/* MOBILE - Extra pequenos */
+@media (max-width: 360px) {
+    .about-content {
+        grid-template-columns: 80px 1fr;
+        gap: 12px;
+    }
+    
+    .about-photo {
+        width: 80px;
+        height: 100px;
+        max-width: 80px;
+        border-radius: 12px;
+    }
+    
+    .about-text h2 {
+        font-size: 1.1rem;
+    }
+    
+    .about-text p {
+        font-size: 0.75rem;
+    }
+    
+    .typing-text {
+        font-size: 0.7rem;
+    }
+    
+    .credentials {
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+        max-width: 200px;
+    }
+    
+    .credential {
+        padding: 5px 6px;
+        min-width: auto;
+        max-width: none;
+    }
 }
 
-.typing-text {
-    font-size: clamp(1rem, 3vw, var(--font-size-lg));
-    color: var(--gray-color);
-    line-height: 1.8;
-    border-right: 2px solid var(--secondary-color);
-    overflow: hidden;
-    white-space: nowrap;
-    animation: typewriter 4s steps(80, end) infinite;
+/* Container responsivo */
+.about-section .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
-@keyframes typewriter {
-    from { width: 0; }
-    to { width: 100%; }
+@media (max-width: 768px) {
+    .about-section .container {
+        padding: 0 16px;
+    }
 }
 
-.about-text p {
-    font-size: clamp(1rem, 3vw, var(--font-size-lg));
-    color: var(--gray-color);
-    line-height: 1.8;
-    margin-bottom: 20px;
+@media (max-width: 480px) {
+    .about-section .container {
+        padding: 0 14px;
+    }
 }
 
-.credentials {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
+@media (max-width: 360px) {
+    .about-section .container {
+        padding: 0 12px;
+    }
 }
 
-.credential {
-    background: var(--light-color);
-    padding: 25px;
-    border-radius: var(--border-radius-medium);
-    text-align: center;
-    transition: all var(--transition-normal);
-    position: relative;
-    cursor: pointer;
-    border: 2px solid transparent;
+/* Hover effects apenas no desktop */
+@media (min-width: 769px) {
+    .about-photo:hover {
+        transform: scale(1.02);
+    }
+    
+    .credential:hover {
+        border-color: #4a8c57;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
 }
-
-.credential:hover {
-    border-color: var(--secondary-color);
-    box-shadow: var(--shadow-medium);
-    transform: translateY(-5px);
-}
-
-.credential-icon {
-    width: 50px;
-    height: 50px;
-    background: var(--gradient-secondary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 15px;
-    color: white;
-    font-size: var(--font-size-xl);
-}
-
-.credential h4 {
-    color: var(--primary-color);
-    font-weight: 600;
-    margin-bottom: 5px;
-    font-size: var(--font-size-xl);
-}
-
-.credential p {
-    color: var(--gray-color);
-    font-size: var(--font-size-sm);
-}
-
 /* ========================================
    TRUTH SECTION
 ======================================== */
