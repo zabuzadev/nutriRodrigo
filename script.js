@@ -1,5 +1,5 @@
 // ========================================
-// VARIÁVEIS GLOBAIS
+// VARIÁVEIS GLOBAIS - MOBILE FIRST
 // ========================================
 let isCarouselPaused = false;
 let scrollProgress = 0;
@@ -11,45 +11,86 @@ let isManualMode = false;
 let autoSlideInterval;
 let manualTimeout;
 
+// Mobile detection
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+// Performance optimization
+const supportsPassive = (() => {
+    let supportsPassive = false;
+    try {
+        addEventListener("test", null, Object.defineProperty({}, 'passive', {
+            get: function () {
+                supportsPassive = true;
+            }
+        }));
+    } catch(e) {}
+    return supportsPassive;
+})();
+
 // ========================================
-// INICIALIZAÇÃO
+// INICIALIZAÇÃO - MOBILE FIRST
 // ========================================
 document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar todas as funcionalidades
-    initializeNavigation();
+    console.log('🥗 Rodrigo Nutrição - Inicializando...');
+    console.log('📱 Mobile:', isMobile ? 'Sim' : 'Não');
+    console.log('👆 Touch:', isTouch ? 'Sim' : 'Não');
+    
+    // Inicializar funcionalidades essenciais primeiro
     initializeLoadingScreen();
+    initializeNavigation();
     initializeScrollProgress();
-    initializeCounters();
-    initializeTypingEffect();
-    initializeParallax();
-    initializeCarousel();
-    initializePlanToggle();
-    initializeBackToTop();
-    initializeIntersectionObserver();
-    initializeParticles();
+    
+    // Depois as funcionalidades secundárias
+    setTimeout(() => {
+        initializeCounters();
+        initializeTypingEffect();
+        initializeCarousel();
+        initializePlanToggle();
+        initializeBackToTop();
+        initializeIntersectionObserver();
+        
+        // Só em desktop
+        if (!isMobile) {
+            initializeParallax();
+            initializeParticles();
+        }
+    }, 100);
+
+    // Log de sucesso
+    setTimeout(() => {
+        console.log('✅ Site carregado com sucesso!');
+        console.log('🎠 Carrossel:', totalSlides, 'slides');
+        console.log('📊 Performance otimizada para mobile');
+    }, 1000);
 });
 
 // ========================================
-// LOADING SCREEN
+// LOADING SCREEN - OTIMIZADO
 // ========================================
 function initializeLoadingScreen() {
     const loadingScreen = document.getElementById('loading-screen');
     
-    // Simular carregamento
+    // Simular carregamento mais rápido no mobile
+    const loadTime = isMobile ? 1000 : 1500;
+    
     setTimeout(() => {
-        loadingScreen.classList.add('hidden');
-        
-        // Remover do DOM após animação
-        setTimeout(() => {
-            if (loadingScreen && loadingScreen.parentNode) {
-                loadingScreen.parentNode.removeChild(loadingScreen);
-            }
-        }, 500);
-    }, 1500);
+        if (loadingScreen) {
+            loadingScreen.classList.add('hidden');
+            
+            // Remover do DOM após animação para liberar memória
+            setTimeout(() => {
+                if (loadingScreen && loadingScreen.parentNode) {
+                    loadingScreen.parentNode.removeChild(loadingScreen);
+                    console.log('🗑️ Loading screen removido do DOM');
+                }
+            }, 500);
+        }
+    }, loadTime);
 }
 
 // ========================================
-// NAVEGAÇÃO
+// NAVEGAÇÃO - MOBILE FIRST
 // ========================================
 function initializeNavigation() {
     const header = document.getElementById('header');
@@ -57,24 +98,50 @@ function initializeNavigation() {
     const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
 
-    // Scroll do header
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 100) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
+    // Otimizar scroll no mobile
+    let ticking = false;
+    const handleScroll = () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                if (window.scrollY > 50) {
+                    header?.classList.add('scrolled');
+                } else {
+                    header?.classList.remove('scrolled');
+                }
+                ticking = false;
+            });
+            ticking = true;
         }
-    });
+    };
+
+    window.addEventListener('scroll', handleScroll, supportsPassive ? { passive: true } : false);
 
     // Menu mobile
-    if (menuToggle) {
-        menuToggle.addEventListener('click', () => {
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
             menuToggle.classList.toggle('active');
             navMenu.classList.toggle('active');
+            
+            // Prevenir scroll quando menu aberto
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
         });
+
+        // Fechar menu ao clicar fora (apenas desktop)
+        if (!isMobile) {
+            document.addEventListener('click', (e) => {
+                if (!menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
+                    closeMenu();
+                }
+            });
+        }
     }
 
-    // Fechar menu ao clicar em link
+    // Navegação suave otimizada
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -84,62 +151,70 @@ function initializeNavigation() {
             if (target.startsWith('#')) {
                 const element = document.querySelector(target);
                 if (element) {
-                    element.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    // Offset para header fixo (mobile menor)
+                    const offsetTop = element.offsetTop - (isMobile ? 70 : 80);
+                    
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
                     });
                 }
             }
 
             // Fechar menu mobile
-            if (menuToggle) {
-                menuToggle.classList.remove('active');
-                navMenu.classList.remove('active');
-            }
+            closeMenu();
         });
     });
 
-    // Fechar menu ao clicar fora
-    document.addEventListener('click', (e) => {
-        if (menuToggle && navMenu && !menuToggle.contains(e.target) && !navMenu.contains(e.target)) {
-            menuToggle.classList.remove('active');
-            navMenu.classList.remove('active');
-        }
-    });
-}
-
-// ========================================
-// BARRA DE PROGRESSO
-// ========================================
-function initializeScrollProgress() {
-    const progressBar = document.getElementById('progress-bar');
-
-    if (progressBar) {
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            scrollProgress = (scrollTop / scrollHeight) * 100;
-            
-            progressBar.style.width = scrollProgress + '%';
-        });
+    function closeMenu() {
+        menuToggle?.classList.remove('active');
+        navMenu?.classList.remove('active');
+        document.body.style.overflow = 'auto';
     }
 }
 
 // ========================================
-// CONTADORES ANIMADOS
+// BARRA DE PROGRESSO - OTIMIZADA
+// ========================================
+function initializeScrollProgress() {
+    const progressBar = document.getElementById('progress-bar');
+    
+    if (!progressBar) return;
+
+    let ticking = false;
+    const updateProgress = () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                scrollProgress = Math.min((scrollTop / scrollHeight) * 100, 100);
+                
+                progressBar.style.width = scrollProgress + '%';
+                ticking = false;
+            });
+            ticking = true;
+        }
+    };
+
+    window.addEventListener('scroll', updateProgress, supportsPassive ? { passive: true } : false);
+}
+
+// ========================================
+// CONTADORES ANIMADOS - MOBILE OTIMIZADO
 // ========================================
 function initializeCounters() {
     const counters = document.querySelectorAll('.counter');
     
     const animateCounter = (counter) => {
         const target = parseInt(counter.getAttribute('data-target'));
-        const increment = target / 100;
+        const duration = isMobile ? 1500 : 2000; // Mais rápido no mobile
+        const increment = target / (duration / 16); // 60fps
         let current = 0;
         
         const updateCounter = () => {
             if (current < target) {
                 current += increment;
-                counter.textContent = Math.ceil(current);
+                counter.textContent = Math.ceil(Math.min(current, target));
                 requestAnimationFrame(updateCounter);
             } else {
                 counter.textContent = target;
@@ -149,7 +224,7 @@ function initializeCounters() {
         updateCounter();
     };
 
-    // Intersection Observer para contadores
+    // Intersection Observer otimizado para mobile
     const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
@@ -157,7 +232,10 @@ function initializeCounters() {
                 animateCounter(entry.target);
             }
         });
-    }, { threshold: 0.5 });
+    }, { 
+        threshold: isMobile ? 0.3 : 0.5,
+        rootMargin: isMobile ? '50px' : '0px'
+    });
 
     counters.forEach(counter => {
         counterObserver.observe(counter);
@@ -165,7 +243,7 @@ function initializeCounters() {
 }
 
 // ========================================
-// EFEITO DE DIGITAÇÃO
+// EFEITO DE DIGITAÇÃO - OTIMIZADO
 // ========================================
 function initializeTypingEffect() {
     const typedElements = document.querySelectorAll('[data-text]');
@@ -187,82 +265,129 @@ function initializeTypingEffect() {
                 charIndex++;
             }
             
-            let typeSpeed = isDeleting ? 50 : 100;
+            // Velocidade otimizada para mobile
+            let typeSpeed = isDeleting ? 30 : (isMobile ? 80 : 100);
             
             if (!isDeleting && charIndex === currentText.length) {
-                typeSpeed = 2000;
+                typeSpeed = 1500; // Pausa menor no mobile
                 isDeleting = true;
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
                 textIndex = (textIndex + 1) % texts.length;
-                typeSpeed = 500;
+                typeSpeed = 300;
             }
             
             const timeout = setTimeout(typeEffect, typeSpeed);
             typingTimeouts.push(timeout);
         };
         
-        // Iniciar efeito quando elemento estiver visível
+        // Iniciar quando visível
         const typingObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !entry.target.classList.contains('typing-started')) {
                     entry.target.classList.add('typing-started');
-                    typeEffect();
+                    setTimeout(typeEffect, 500); // Delay inicial menor
                 }
             });
-        }, { threshold: 0.5 });
+        }, { 
+            threshold: 0.3,
+            rootMargin: isMobile ? '100px' : '50px'
+        });
         
         typingObserver.observe(element);
     });
 }
 
 // ========================================
-// EFEITO PARALLAX
+// EFEITO PARALLAX - APENAS DESKTOP
 // ========================================
 function initializeParallax() {
-    const parallaxElements = document.querySelectorAll('.parallax-element');
+    if (isMobile) return; // Não usar parallax no mobile por performance
     
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        
-        parallaxElements.forEach(element => {
-            const speed = element.dataset.speed || 0.5;
-            const yPos = -(scrolled * speed);
-            element.style.transform = `translateY(${yPos}px)`;
-        });
-    });
-
-    // Parallax para elementos flutuantes
+    const parallaxElements = document.querySelectorAll('.parallax-element');
     const floatingElements = document.querySelectorAll('.float-element');
     
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        
-        floatingElements.forEach((element, index) => {
-            const speed = parseFloat(element.dataset.speed) || 1;
-            const yPos = Math.sin(scrolled * 0.01 + index) * 20 * speed;
-            const xPos = Math.cos(scrolled * 0.008 + index) * 15 * speed;
-            element.style.transform = `translate(${xPos}px, ${yPos}px)`;
-        });
-    });
+    let ticking = false;
+    const handleParallax = () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                const scrolled = window.pageYOffset;
+                
+                parallaxElements.forEach(element => {
+                    const speed = element.dataset.speed || 0.5;
+                    const yPos = -(scrolled * speed);
+                    element.style.transform = `translateY(${yPos}px)`;
+                });
+                
+                floatingElements.forEach((element, index) => {
+                    const speed = parseFloat(element.dataset.speed) || 1;
+                    const yPos = Math.sin(scrolled * 0.008 + index) * 15 * speed;
+                    const xPos = Math.cos(scrolled * 0.006 + index) * 10 * speed;
+                    element.style.transform = `translate(${xPos}px, ${yPos}px)`;
+                });
+                
+                ticking = false;
+            });
+            ticking = true;
+        }
+    };
+
+    window.addEventListener('scroll', handleParallax, supportsPassive ? { passive: true } : false);
 }
 
 // ========================================
-// CAROUSEL DE SUCESSOS COM NAVEGAÇÃO MANUAL
+// CAROUSEL - MOBILE FIRST COM TOUCH
 // ========================================
 function initializeCarousel() {
     const carouselTrack = document.getElementById('carousel-track');
+    const carouselContainer = document.querySelector('.carousel-container');
     const progressFill = document.querySelector('.progress-fill');
     
     if (!carouselTrack) return;
 
+    // Touch support para mobile
+    let startX = 0;
+    let isDragging = false;
+    let currentTransform = 0;
+
+    if (isTouch && carouselContainer) {
+        carouselContainer.addEventListener('touchstart', handleTouchStart, supportsPassive ? { passive: true } : false);
+        carouselContainer.addEventListener('touchmove', handleTouchMove, supportsPassive ? { passive: false } : false);
+        carouselContainer.addEventListener('touchend', handleTouchEnd, supportsPassive ? { passive: true } : false);
+    }
+
+    function handleTouchStart(e) {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+        enableManualMode();
+    }
+
+    function handleTouchMove(e) {
+        if (!isDragging) return;
+        
+        e.preventDefault(); // Prevenir scroll
+        const currentX = e.touches[0].clientX;
+        const diffX = startX - currentX;
+        
+        if (Math.abs(diffX) > 10) { // Threshold para evitar cliques acidentais
+            if (diffX > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+            isDragging = false;
+        }
+    }
+
+    function handleTouchEnd() {
+        isDragging = false;
+    }
+
     // Inicializar carrossel automático
     startAutoSlide();
 
-    // Pausar/Retomar carousel no hover
-    const carouselContainer = document.querySelector('.carousel-container');
-    
-    if (carouselContainer) {
+    // Hover effects apenas desktop
+    if (!isMobile && carouselContainer) {
         carouselContainer.addEventListener('mouseenter', () => {
             if (!isCarouselPaused && !isManualMode) {
                 pauseAutoSlide();
@@ -276,37 +401,41 @@ function initializeCarousel() {
         });
     }
 
-    // Adicionar hover effects aos cards
+    // Hover effects nos cards
     const successCards = document.querySelectorAll('.success-card');
     successCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.style.transform = 'translateY(-15px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'translateY(-10px) scale(1)';
-        });
+        if (!isMobile) {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-15px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(-10px) scale(1)';
+            });
+        }
 
         // Click para ver detalhes
         card.addEventListener('click', () => {
-            const result = card.querySelector('h4').textContent;
+            const result = card.querySelector('h4')?.textContent || 'Caso de Sucesso';
             showSuccessDetail(result);
         });
     });
 }
 
-// Iniciar slide automático
+// Funções do carrossel
 function startAutoSlide() {
     if (autoSlideInterval) clearInterval(autoSlideInterval);
+    
+    // Intervalo menor no mobile
+    const interval = isMobile ? 4000 : 5000;
     
     autoSlideInterval = setInterval(() => {
         if (!isCarouselPaused && !isManualMode) {
             nextSlide();
         }
-    }, 5000); // Muda a cada 5 segundos
+    }, interval);
 }
 
-// Pausar slide automático
 function pauseAutoSlide() {
     const carouselTrack = document.getElementById('carousel-track');
     const progressFill = document.querySelector('.progress-fill');
@@ -315,7 +444,6 @@ function pauseAutoSlide() {
     if (progressFill) progressFill.style.animationPlayState = 'paused';
 }
 
-// Retomar slide automático
 function resumeAutoSlide() {
     const carouselTrack = document.getElementById('carousel-track');
     const progressFill = document.querySelector('.progress-fill');
@@ -324,31 +452,18 @@ function resumeAutoSlide() {
     if (progressFill) progressFill.style.animationPlayState = 'running';
 }
 
-// Navegar para slide anterior
-function prevSlide() {
-    enableManualMode();
-    currentSlide = currentSlide > 0 ? currentSlide - 1 : totalSlides - 1;
-    updateCarouselPosition();
-    updateIndicators();
-}
-
-// Navegar para próximo slide
 function nextSlide() {
     enableManualMode();
     currentSlide = (currentSlide + 1) % totalSlides;
     updateCarouselPosition();
-    updateIndicators();
 }
 
-// Ir para slide específico
-function goToSlide(slideIndex) {
+function prevSlide() {
     enableManualMode();
-    currentSlide = slideIndex;
+    currentSlide = currentSlide > 0 ? currentSlide - 1 : totalSlides - 1;
     updateCarouselPosition();
-    updateIndicators();
 }
 
-// Ativar modo manual
 function enableManualMode() {
     const carouselTrack = document.getElementById('carousel-track');
     
@@ -360,14 +475,13 @@ function enableManualMode() {
         carouselTrack.style.animationPlayState = 'paused';
     }
     
-    // Voltar ao automático após 10 segundos de inatividade
+    // Voltar ao automático após inatividade
     if (manualTimeout) clearTimeout(manualTimeout);
     manualTimeout = setTimeout(() => {
         disableManualMode();
-    }, 10000);
+    }, isMobile ? 8000 : 10000); // Menos tempo no mobile
 }
 
-// Desativar modo manual
 function disableManualMode() {
     const carouselTrack = document.getElementById('carousel-track');
     
@@ -383,24 +497,17 @@ function disableManualMode() {
     startAutoSlide();
 }
 
-// Atualizar posição do carrossel
 function updateCarouselPosition() {
     const carouselTrack = document.getElementById('carousel-track');
     if (!carouselTrack) return;
     
-    const cardWidth = 340; // 320px card + 20px gap
+    // Largura do card otimizada para mobile
+    const cardWidth = isMobile ? 295 : 340; // 280px card + 15px gap mobile
     const offset = -(currentSlide * cardWidth);
     carouselTrack.style.transform = `translateX(${offset}px)`;
 }
 
-// Atualizar indicadores
-function updateIndicators() {
-    const indicators = document.querySelectorAll('.indicator');
-    indicators.forEach((indicator, index) => {
-        indicator.classList.toggle('active', index === currentSlide);
-    });
-}
-
+// Controles do carrossel
 function pauseCarousel() {
     const carouselTrack = document.getElementById('carousel-track');
     const progressFill = document.querySelector('.progress-fill');
@@ -438,11 +545,17 @@ function resumeCarousel() {
 }
 
 function showSuccessDetail(result) {
-    alert(`Detalhes do resultado: ${result}\n\nEm breve você poderá ver mais detalhes sobre esta transformação!\n\nPara mais informações, entre em contato pelo WhatsApp.`);
+    const message = `🎯 Resultado: ${result}\n\n✨ Em breve você poderá ver mais detalhes sobre esta incrível transformação!\n\n📱 Para mais informações e começar sua jornada, entre em contato pelo WhatsApp.`;
+    
+    if (isMobile && navigator.vibrate) {
+        navigator.vibrate(100); // Feedback tátil no mobile
+    }
+    
+    alert(message);
 }
 
 // ========================================
-// TOGGLE DE PLANOS
+// TOGGLE DE PLANOS - MOBILE OTIMIZADO
 // ========================================
 function initializePlanToggle() {
     const toggleBtns = document.querySelectorAll('.toggle-btn');
@@ -450,17 +563,24 @@ function initializePlanToggle() {
     
     toggleBtns.forEach(btn => {
         btn.addEventListener('click', () => {
+            // Feedback tátil no mobile
+            if (isMobile && navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+            
             // Atualizar botão ativo
             toggleBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             
-            // Mostrar plano correspondente
+            // Mostrar plano correspondente com animação
             const planType = btn.getAttribute('data-plan');
             
             planTypes.forEach(plan => {
                 plan.classList.remove('active');
                 if (plan.classList.contains(planType)) {
-                    plan.classList.add('active');
+                    setTimeout(() => {
+                        plan.classList.add('active');
+                    }, 150); // Pequeno delay para animação suave
                 }
             });
         });
@@ -468,23 +588,38 @@ function initializePlanToggle() {
 }
 
 // ========================================
-// BOTÃO VOLTAR AO TOPO
+// BOTÃO VOLTAR AO TOPO - MOBILE OTIMIZADO
 // ========================================
 function initializeBackToTop() {
     const backToTopBtn = document.getElementById('back-to-top');
     
-    if (backToTopBtn) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopBtn.classList.add('show');
-            } else {
-                backToTopBtn.classList.remove('show');
-            }
-        });
-    }
+    if (!backToTopBtn) return;
+
+    let ticking = false;
+    const handleScroll = () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                const showThreshold = isMobile ? 200 : 300;
+                if (window.scrollY > showThreshold) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    };
+
+    window.addEventListener('scroll', handleScroll, supportsPassive ? { passive: true } : false);
 }
 
 function scrollToTop() {
+    // Feedback tátil no mobile
+    if (isMobile && navigator.vibrate) {
+        navigator.vibrate(100);
+    }
+    
     window.scrollTo({
         top: 0,
         behavior: 'smooth'
@@ -492,13 +627,18 @@ function scrollToTop() {
 }
 
 // ========================================
-// MODAIS
+// MODAIS - MOBILE FRIENDLY
 // ========================================
 function openVideoModal() {
     const modal = document.getElementById('video-modal');
     if (modal) {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
+        
+        // Feedback tátil no mobile
+        if (isMobile && navigator.vibrate) {
+            navigator.vibrate(100);
+        }
     }
 }
 
@@ -510,102 +650,21 @@ function closeVideoModal() {
     }
 }
 
-function openLightbox(element) {
-    const lightbox = document.getElementById('lightbox');
-    if (lightbox) {
-        lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        console.log('Abrindo lightbox para:', element);
-    }
-}
-
-function closeLightbox() {
-    const lightbox = document.getElementById('lightbox');
-    if (lightbox) {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-}
-
 // ========================================
-// DETALHES DOS PROCESSOS
-// ========================================
-function showProcessDetail(step) {
-    const details = {
-        1: "Avaliação Completa:\n• Anamnese detalhada\n• Análise de exames\n• Avaliação antropométrica\n• Definição de objetivos\n• Identificação de restrições",
-        2: "Estratégia Individual:\n• Cálculo de necessidades nutricionais\n• Elaboração do plano alimentar\n• Seleção de alimentos adequados\n• Definição de horários\n• Criação de cardápios variados",
-        3: "Suporte Diário:\n• Acompanhamento via WhatsApp\n• Esclarecimento de dúvidas\n• Ajustes quando necessário\n• Motivação constante\n• Resolução de problemas",
-        4: "Transformação Real:\n• Mudanças graduais e sustentáveis\n• Criação de novos hábitos\n• Melhoria da qualidade de vida\n• Resultados duradouros\n• Autonomia alimentar"
-    };
-    
-    alert(details[step] || "Detalhes do processo em desenvolvimento...");
-}
-
-// ========================================
-// DETALHES DOS PLANOS
-// ========================================
-function showPlanDetails(planType) {
-    const details = {
-        online: "Plano Online Detalhado:\n\n✅ Consulta inicial completa\n✅ Plano alimentar personalizado\n✅ Ficha de treino individualizada\n✅ Vídeos explicativos\n✅ Suporte diário por WhatsApp\n✅ Análise de exames\n✅ Grupo exclusivo no Instagram\n✅ Opção de videochamadas\n\n💰 A partir de R$ 250,00/mês\n⏰ Válido por 4 semanas\n📱 100% online",
-        
-        presencial: "Plano Presencial Detalhado:\n\n✅ Tudo do plano online +\n✅ Consultas presenciais (40min-1h)\n✅ Avaliação postural e funcional\n✅ Avaliação antropométrica\n✅ Lembretes semanais personalizados\n✅ Suporte especializado para medicamentos\n✅ Acompanhamento mais próximo\n\n💰 A partir de R$ 350,00/mês\n⏰ Válido por 4 semanas\n🏥 Atendimento presencial"
-    };
-    
-    alert(details[planType] || "Detalhes do plano em desenvolvimento...");
-}
-
-// ========================================
-// VALIDAÇÃO DE FORMULÁRIOS
-// ========================================
-function validateForm(data) {
-    // Validações básicas
-    if (data.name && data.name.length < 2) {
-        alert('Nome deve ter pelo menos 2 caracteres');
-        return false;
-    }
-    
-    if (data.email && !isValidEmail(data.email)) {
-        alert('Email inválido');
-        return false;
-    }
-    
-    if (data.phone && data.phone.length < 10) {
-        alert('Telefone inválido');
-        return false;
-    }
-    
-    return true;
-}
-
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-function openWhatsApp(data) {
-    const phone = '5511999999999'; // ⚠️ ALTERE ESTE NÚMERO PARA O REAL
-    const message = `Olá! Tenho interesse no acompanhamento ${data.plan || 'nutricional'}.\n\nMeus dados:\nNome: ${data.name || ''}\nTelefone: ${data.phone || ''}\n\nGostaria de mais informações.`;
-    
-    const whatsappURL = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappURL, '_blank');
-}
-
-function showSuccessMessage() {
-    alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
-}
-
-// ========================================
-// INTERSECTION OBSERVER
+// INTERSECTION OBSERVER - OTIMIZADO
 // ========================================
 function initializeIntersectionObserver() {
-    // Observer para animações
+    // Observer para animações com configurações mobile
     const animateOnScrollObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('animate');
             }
         });
-    }, { threshold: 0.1 });
+    }, { 
+        threshold: isMobile ? 0.1 : 0.2,
+        rootMargin: isMobile ? '50px' : '0px'
+    });
 
     // Observer para elementos que devem animar
     const elementsToAnimate = document.querySelectorAll('.truth-card, .process-step, .feature-item');
@@ -613,79 +672,88 @@ function initializeIntersectionObserver() {
         animateOnScrollObserver.observe(element);
     });
 
-    // Observer para lazy loading de imagens
+    // Lazy loading otimizado para mobile
     const lazyImages = document.querySelectorAll('img[data-src]');
-    const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                imageObserver.unobserve(img);
-            }
+    if (lazyImages.length > 0) {
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                    imageObserver.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: isMobile ? '100px' : '50px'
         });
-    });
 
-    lazyImages.forEach(img => {
-        imageObserver.observe(img);
-    });
+        lazyImages.forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
 }
 
 // ========================================
-// SISTEMA DE PARTÍCULAS
+// SISTEMA DE PARTÍCULAS - APENAS DESKTOP
 // ========================================
 function initializeParticles() {
+    if (isMobile) return; // Não usar no mobile por performance
+    
     const particlesContainer = document.querySelector('.hero-particles');
     if (!particlesContainer) return;
 
-    // Criar partículas dinamicamente
-    for (let i = 0; i < 30; i++) {
+    // Criar menos partículas para melhor performance
+    for (let i = 0; i < 20; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
         particle.style.cssText = `
             position: absolute;
-            width: ${Math.random() * 4 + 1}px;
-            height: ${Math.random() * 4 + 1}px;
-            background: rgba(255, 255, 255, ${Math.random() * 0.5 + 0.1});
+            width: ${Math.random() * 3 + 1}px;
+            height: ${Math.random() * 3 + 1}px;
+            background: rgba(255, 255, 255, ${Math.random() * 0.4 + 0.1});
             border-radius: 50%;
             left: ${Math.random() * 100}%;
             top: ${Math.random() * 100}%;
-            animation: particleFloat ${Math.random() * 20 + 10}s ease-in-out infinite;
+            animation: particleFloat ${Math.random() * 15 + 10}s ease-in-out infinite;
             animation-delay: ${Math.random() * 5}s;
         `;
         particlesContainer.appendChild(particle);
     }
 
-    // Adicionar CSS para animação das partículas
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes particleFloat {
-            0%, 100% { 
-                transform: translateY(0px) translateX(0px) rotate(0deg);
-                opacity: 0.1;
+    // CSS para animação das partículas
+    if (!document.querySelector('#particle-styles')) {
+        const style = document.createElement('style');
+        style.id = 'particle-styles';
+        style.textContent = `
+            @keyframes particleFloat {
+                0%, 100% { 
+                    transform: translateY(0px) translateX(0px) rotate(0deg);
+                    opacity: 0.1;
+                }
+                25% { 
+                    transform: translateY(-80px) translateX(40px) rotate(90deg);
+                    opacity: 0.8;
+                }
+                50% { 
+                    transform: translateY(-40px) translateX(-40px) rotate(180deg);
+                    opacity: 0.4;
+                }
+                75% { 
+                    transform: translateY(-120px) translateX(20px) rotate(270deg);
+                    opacity: 0.6;
+                }
             }
-            25% { 
-                transform: translateY(-100px) translateX(50px) rotate(90deg);
-                opacity: 1;
-            }
-            50% { 
-                transform: translateY(-50px) translateX(-50px) rotate(180deg);
-                opacity: 0.5;
-            }
-            75% { 
-                transform: translateY(-150px) translateX(30px) rotate(270deg);
-                opacity: 0.8;
-            }
-        }
-    `;
-    document.head.appendChild(style);
+        `;
+        document.head.appendChild(style);
+    }
 }
 
 // ========================================
-// UTILS E HELPERS
+// UTILS E HELPERS - MOBILE OTIMIZADO
 // ========================================
 
-// Debounce function
+// Debounce otimizado
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -698,7 +766,7 @@ function debounce(func, wait) {
     };
 }
 
-// Throttle function
+// Throttle otimizado
 function throttle(func, limit) {
     let inThrottle;
     return function() {
@@ -712,7 +780,7 @@ function throttle(func, limit) {
     };
 }
 
-// Check if element is in viewport
+// Verificar se elemento está visível
 function isInViewport(element) {
     const rect = element.getBoundingClientRect();
     return (
@@ -723,31 +791,52 @@ function isInViewport(element) {
     );
 }
 
-// ========================================
-// EVENT LISTENERS GLOBAIS
-// ========================================
-
-// Fechar modais com ESC e controles do carrossel
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        closeVideoModal();
-        closeLightbox();
+// Abrir WhatsApp com mensagem personalizada
+function openWhatsApp(planType = 'nutricional') {
+    const phone = '5511999999999'; // ⚠️ ALTERE ESTE NÚMERO PARA O REAL
+    const messages = {
+        'online': 'Olá! Tenho interesse no Acompanhamento Online. Gostaria de mais informações sobre o plano e como começar.',
+        'presencial': 'Olá! Tenho interesse no Acompanhamento Presencial. Gostaria de agendar uma consulta e saber sobre disponibilidade.',
+        'nutricional': 'Olá! Tenho interesse no acompanhamento nutricional. Gostaria de mais informações sobre os planos disponíveis.'
+    };
+    
+    const message = messages[planType] || messages['nutricional'];
+    const whatsappURL = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    
+    // Feedback tátil no mobile
+    if (isMobile && navigator.vibrate) {
+        navigator.vibrate(100);
     }
     
-    // Controles do carrossel com teclado
-    if (e.key === 'ArrowLeft') {
-        prevSlide();
-    } else if (e.key === 'ArrowRight') {
-        nextSlide();
-    } else if (e.key === ' ') { // Barra de espaço
-        e.preventDefault();
-        if (isCarouselPaused) {
-            resumeCarousel();
-        } else {
-            pauseCarousel();
+    window.open(whatsappURL, '_blank');
+}
+
+// ========================================
+// EVENT LISTENERS GLOBAIS - MOBILE OTIMIZADO
+// ========================================
+
+// Controles de teclado (apenas desktop)
+if (!isMobile) {
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeVideoModal();
         }
-    }
-});
+        
+        // Controles do carrossel
+        if (e.key === 'ArrowLeft') {
+            prevSlide();
+        } else if (e.key === 'ArrowRight') {
+            nextSlide();
+        } else if (e.key === ' ') {
+            e.preventDefault();
+            if (isCarouselPaused) {
+                resumeCarousel();
+            } else {
+                pauseCarousel();
+            }
+        }
+    });
+}
 
 // Fechar modais clicando fora
 window.addEventListener('click', (e) => {
@@ -760,52 +849,58 @@ window.addEventListener('click', (e) => {
     });
 });
 
-// Optimized scroll listener
-const optimizedScrollHandler = throttle(() => {
-    // Scroll-based functions here
-}, 16); // ~60fps
-
-window.addEventListener('scroll', optimizedScrollHandler);
-
-// Resize listener
+// Listener de resize otimizado
 const optimizedResizeHandler = debounce(() => {
-    console.log('Window resized');
+    console.log('📱 Window resized, reajustando...');
+    
+    // Reajustar carrossel se necessário
+    if (currentSlide > 0) {
+        updateCarouselPosition();
+    }
 }, 250);
 
 window.addEventListener('resize', optimizedResizeHandler);
 
 // ========================================
-// ERROR HANDLING
+// ERROR HANDLING E PERFORMANCE
 // ========================================
+
+// Error handling global
 window.addEventListener('error', (e) => {
-    console.error('JavaScript Error:', e.error);
+    console.error('❌ JavaScript Error:', e.error);
+    console.error('📍 File:', e.filename, 'Line:', e.lineno);
 });
 
-// ========================================
-// PERFORMANCE MONITORING
-// ========================================
+// Performance monitoring
 if ('performance' in window) {
     window.addEventListener('load', () => {
         setTimeout(() => {
             const perfData = performance.getEntriesByType('navigation')[0];
-            console.log('Page Load Time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
+            const loadTime = Math.round(perfData.loadEventEnd - perfData.loadEventStart);
+            console.log('⚡ Page Load Time:', loadTime + 'ms');
+            
+            if (loadTime > 3000) {
+                console.warn('⚠️ Slow loading detected. Consider optimizations.');
+            } else {
+                console.log('✅ Good performance!');
+            }
         }, 0);
     });
 }
 
-// ========================================
-// CLEANUP
-// ========================================
+// Memory cleanup
 window.addEventListener('beforeunload', () => {
-    // Clear timeouts
+    // Limpar timeouts
     typingTimeouts.forEach(timeout => clearTimeout(timeout));
+    if (autoSlideInterval) clearInterval(autoSlideInterval);
+    if (manualTimeout) clearTimeout(manualTimeout);
+    
+    console.log('🧹 Cleanup completed');
 });
 
 // ========================================
-// FUNÇÕES EXTRAS PARA COMPATIBILIDADE
+// SMOOTH SCROLL POLYFILL - FALLBACK
 // ========================================
-
-// Smooth scroll polyfill para navegadores antigos
 if (!('scrollBehavior' in document.documentElement.style)) {
     const smoothScrollPolyfill = () => {
         const links = document.querySelectorAll('a[href^="#"]');
@@ -814,7 +909,11 @@ if (!('scrollBehavior' in document.documentElement.style)) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
+                    const offsetTop = target.offsetTop - (isMobile ? 70 : 80);
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
                 }
             });
         });
@@ -822,16 +921,78 @@ if (!('scrollBehavior' in document.documentElement.style)) {
     smoothScrollPolyfill();
 }
 
-// Detectar dispositivo móvel
-const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-if (isMobile) {
-    document.body.classList.add('mobile-device');
+// ========================================
+// FUNÇÕES AUXILIARES ESPECÍFICAS
+// ========================================
+
+// Mostrar detalhes do processo
+function showProcessDetail(step) {
+    const details = {
+        1: "🔍 AVALIAÇÃO COMPLETA:\n\n• Anamnese detalhada personalizada\n• Análise completa de exames laboratoriais\n• Avaliação antropométrica profissional\n• Definição clara de objetivos realistas\n• Identificação de restrições e preferências",
+        2: "🎯 ESTRATÉGIA INDIVIDUAL:\n\n• Cálculo preciso das necessidades nutricionais\n• Elaboração do plano alimentar personalizado\n• Seleção criteriosa de alimentos adequados\n• Definição de horários otimizados\n• Criação de cardápios variados e saborosos",
+        3: "💬 SUPORTE DIÁRIO:\n\n• Acompanhamento constante via WhatsApp\n• Esclarecimento imediato de dúvidas\n• Ajustes quando necessário\n• Motivação e suporte psicológico\n• Resolução rápida de problemas",
+        4: "🏆 TRANSFORMAÇÃO REAL:\n\n• Mudanças graduais e sustentáveis\n• Criação de novos hábitos saudáveis\n• Melhoria significativa da qualidade de vida\n• Resultados duradouros comprovados\n• Autonomia alimentar conquistada"
+    };
+    
+    const detail = details[step] || "Detalhes do processo em desenvolvimento...";
+    
+    // Feedback tátil no mobile
+    if (isMobile && navigator.vibrate) {
+        navigator.vibrate(100);
+    }
+    
+    alert(detail);
 }
 
-// Log de inicialização
-console.log('🥗 Rodrigo Nutrição - Site carregado com sucesso!');
-console.log('📱 Dispositivo móvel:', isMobile ? 'Sim' : 'Não');
-console.log('🎠 Carrossel com navegação manual ativado');
-console.log('⌨️ Controles: ← → (setas), Espaço (pause/play)');
-console.log('📱 Mobile: Swipe left/right para navegar');
-console.log('🔧 JavaScript inicializado em:', new Date().toLocaleTimeString());
+// Validar formulário (se necessário)
+function validateForm(data) {
+    if (data.name && data.name.length < 2) {
+        alert('❌ Nome deve ter pelo menos 2 caracteres');
+        return false;
+    }
+    
+    if (data.email && !isValidEmail(data.email)) {
+        alert('❌ Email inválido');
+        return false;
+    }
+    
+    if (data.phone && data.phone.length < 10) {
+        alert('❌ Telefone inválido');
+        return false;
+    }
+    
+    return true;
+}
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// ========================================
+// INICIALIZAÇÃO FINAL E LOG
+// ========================================
+
+// Log final de inicialização
+setTimeout(() => {
+    console.log('🎉 Rodrigo Nutrição - Site totalmente carregado!');
+    console.log('📊 Estatísticas:');
+    console.log(`   • Mobile: ${isMobile}`);
+    console.log(`   • Touch: ${isTouch}`);
+    console.log(`   • Carrossel: ${totalSlides} slides`);
+    console.log(`   • Performance: Otimizado`);
+    console.log('🚀 Pronto para conversões!');
+}, 2000);
+
+// Export das funções principais para uso global
+window.rodrigoNutricao = {
+    openVideoModal,
+    closeVideoModal,
+    scrollToTop,
+    openWhatsApp,
+    showProcessDetail,
+    pauseCarousel,
+    resumeCarousel,
+    nextSlide,
+    prevSlide
+};
